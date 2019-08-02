@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Form extends React.Component {
   constructor() {
@@ -39,50 +41,27 @@ class Form extends React.Component {
       } else {
         this.setState({ type: '?' });
       }
-    }
-    this.setState({ [name]: value });
-    if (this.state.number) {
-      // this.checkType();
       this.validate();
     }
+    this.setState({ [name]: value });
   }
-
-  //also need a handle submit function
-  //should move checking for type out of the handle change function
-
-  // checkType() {
-  //   console.log('character', this.state.number.charAt(0));
-  //   if (this.state.number.charAt(0) === '4') {
-  //     this.setState({ type: 'Visa' });
-  //   }
-  //   if (this.state.number.charAt(0) === 5) {
-  //     this.setState({ type: 'Mastercard' });
-  //   }
-  //   if (
-  //     this.state.number.charAt(0) === 3 &&
-  //     (this.state.number.charAt(1) === 4 || this.state.number.charAt(1) === 7)
-  //   ) {
-  //     this.setState({ type: 'American Express' });
-  //   } else {
-  //     this.setState({ type: '?' });
-  //   }
-  // }
 
   //not currently using this function -- there is definitely a better way to validate using react forms
   validate() {
     if (
       this.state.type === 'Visa' &&
-      this.state.number.length >= 13 &&
-      this.state.number.length <= 16
+      this.state.number.length >= 12 &&
+      this.state.number.length <= 15
     ) {
       this.setState({ validated: true });
-    }
-    if (this.state.type === 'Mastercard' && this.state.number.length === 16) {
-      this.setState({ validated: true });
-    }
-    if (
-      this.state.type === 'American Express' &&
+    } else if (
+      this.state.type === 'Mastercard' &&
       this.state.number.length === 15
+    ) {
+      this.setState({ validated: true });
+    } else if (
+      this.state.type === 'American Express' &&
+      this.state.number.length === 14
     ) {
       this.setState({ validated: true });
     } else {
@@ -101,9 +80,9 @@ class Form extends React.Component {
           <div>Type: {this.state.type}</div>
           <div>
             {this.state.validated === true ? (
-              <i className="fas fa-check" />
+              <FontAwesomeIcon icon={faCheck} />
             ) : (
-              <i className="fas fa-times" />
+              <FontAwesomeIcon icon={faTimes} />
             )}
           </div>
           <label>
