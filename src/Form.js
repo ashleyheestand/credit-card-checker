@@ -36,6 +36,8 @@ class Form extends React.Component {
         (secondNumber === '3' || secondNumber === '7')
       ) {
         this.setState({ type: 'American Express' });
+      } else {
+        this.setState({ type: '?' });
       }
     }
     this.setState({ [name]: value });
@@ -97,6 +99,13 @@ class Form extends React.Component {
         <form>
           {/* need to fix where this appears and styling  */}
           <div>Type: {this.state.type}</div>
+          <div>
+            {this.state.validated === true ? (
+              <i className="fas fa-check" />
+            ) : (
+              <i className="fas fa-times" />
+            )}
+          </div>
           <label>
             Credit card number:
             <input
