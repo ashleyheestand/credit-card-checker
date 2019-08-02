@@ -50,8 +50,8 @@ class Form extends React.Component {
   validate() {
     if (
       this.state.type === 'Visa' &&
-      this.state.number.length >= 12 &&
-      this.state.number.length <= 15
+      this.state.number.length >= 13 &&
+      this.state.number.length <= 16
     ) {
       this.setState({ validated: true });
     } else if (
