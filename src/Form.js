@@ -19,14 +19,14 @@ class Form extends React.Component {
 
   //Need to change the type when a new number is input
   handleInputChange(event) {
-    // console.log('event', event.target.value.charAt(0));
+    console.log('event', event.target.value.charAt(0));
     const target = event.target;
     const value = target.value;
     const name = target.name;
     if (name === 'number') {
       const firstNumber = event.target.value.charAt(0);
       const secondNumber = event.target.value.charAt(1);
-      // console.log(firstNumber, 'first');
+      console.log(firstNumber, 'first', secondNumber);
       if (firstNumber === '4') {
         this.setState({ type: 'Visa' });
       } else if (firstNumber === '5') {
