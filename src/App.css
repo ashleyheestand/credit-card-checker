@@ -17,6 +17,16 @@ form {
   vertical-align: top;
 }
 
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+#type {
+  background-color: lightgray;
+}
+
 input {
   display: block;
   margin-bottom: 15px;

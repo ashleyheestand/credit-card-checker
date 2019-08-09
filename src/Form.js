@@ -76,36 +76,49 @@ class Form extends React.Component {
       <div>
         <h1>Order Now</h1>
         <form>
-          {/* need to fix where this appears and styling  */}
-          <div>Type: {this.state.type}</div>
-          <div>
-            {this.state.validated === true ? (
-              <FontAwesomeIcon icon={faCheck} />
-            ) : (
-              <FontAwesomeIcon icon={faTimes} />
-            )}
-          </div>
-          <label>
-            Credit card number:
-            <input
-              name="number"
-              type="number"
-              value={this.state.number}
-              onChange={this.handleInputChange}
-            />
-          </label>
+          <div class="input-group mb-3">
+            <div>
+              <label>Credit card number:</label>
+              <input
+                class="form-control"
+                name="number"
+                type="number"
+                value={this.state.number}
+                onChange={this.handleInputChange}
+              />
+            </div>
 
-          <label>
-            Name on card:
+            <div class="input-group-append">
+              <div>
+                <label> </label>
+                {this.state.validated === true ? (
+                  <input
+                    disabled
+                    class="form-control is-valid"
+                    value={this.state.type}
+                  />
+                ) : (
+                  <input
+                    disabled
+                    class="form-control is-invalid"
+                    value={this.state.type}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Name on card: </label>
             <input
               name="name"
               type="text"
               value={this.state.name}
               onChange={this.handleInputChange}
             />
-          </label>
-          <label>
-            Expiry Date:
+          </div>
+          <div class="form-group">
+            <label>Expiry Date: </label>
             <input
               name="date"
               type="text"
@@ -113,16 +126,16 @@ class Form extends React.Component {
               value={this.state.date}
               onChange={this.handleInputChange}
             />
-          </label>
-          <label>
-            CVV:
+          </div>
+          <div class="form-group">
+            <label>CVV:</label>
             <input
               name="cvv"
               type="number"
               value={this.state.cvv}
               onChange={this.handleInputChange}
             />
-          </label>
+          </div>
           <button>Submit</button>
         </form>
       </div>
