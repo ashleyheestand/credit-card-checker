@@ -136,7 +136,9 @@ class Form extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-          <button>Submit</button>
+          <button type="button" class="btn btn-primary">
+            Submit
+          </button>
         </form>
       </div>
     );
