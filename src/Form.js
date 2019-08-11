@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 class Form extends React.Component {
   constructor() {
@@ -75,41 +73,43 @@ class Form extends React.Component {
     return (
       <div>
         <h1>Order Now</h1>
-        <form>
-          <div class="input-group mb-3">
-            <div>
-              <label>Credit card number:</label>
-              <input
-                class="form-control"
-                name="number"
-                type="number"
-                value={this.state.number}
-                onChange={this.handleInputChange}
-              />
-            </div>
 
-            <div class="input-group-append">
+        <form>
+          <hr />
+          <div class="form-group">
+            <label class="font-weight-bold">Credit card number: </label>
+
+            <div class="input-group mb-3">
               <div>
-                <label> </label>
-                {this.state.validated === true ? (
-                  <input
-                    disabled
-                    class="form-control is-valid"
-                    value={this.state.type}
-                  />
-                ) : (
-                  <input
-                    disabled
-                    class="form-control is-invalid"
-                    value={this.state.type}
-                  />
-                )}
+                <input
+                  class="form-control"
+                  name="number"
+                  type="number"
+                  value={this.state.number}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div class="input-group-append">
+                <div id="basic-addon3">
+                  {this.state.validated === true ? (
+                    <input
+                      disabled
+                      class="form-control is-valid"
+                      value={this.state.type}
+                    />
+                  ) : (
+                    <input
+                      disabled
+                      class="form-control is-invalid"
+                      value={this.state.type}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
-
           <div class="form-group">
-            <label>Name on card: </label>
+            <label class="font-weight-bold">Name on card: </label>
             <input
               name="name"
               type="text"
@@ -118,7 +118,7 @@ class Form extends React.Component {
             />
           </div>
           <div class="form-group">
-            <label>Expiry Date: </label>
+            <label class="font-weight-bold">Expiry Date: </label>
             <input
               name="date"
               type="text"
@@ -128,7 +128,7 @@ class Form extends React.Component {
             />
           </div>
           <div class="form-group">
-            <label>CVV:</label>
+            <label class="font-weight-bold">CVV:</label>
             <input
               name="cvv"
               type="number"
