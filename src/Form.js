@@ -13,13 +13,13 @@ class Form extends React.Component {
       validated: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    // this.checkType = this.checkType.bind(this);
     this.validate = this.validate.bind(this);
+    this.doubleCheck = this.doubleCheck.bind(this);
   }
 
   //Need to change the type when a new number is input
-  handleInputChange(event) {
-    console.log('event', event.target.value.charAt(0));
+  async handleInputChange(event) {
+    // console.log('event', event.target.value.charAt(0));
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -41,10 +41,11 @@ class Form extends React.Component {
       }
       this.validate();
     }
-    this.setState({ [name]: value });
+    await this.setState({ [name]: value });
+    this.doubleCheck();
+    // console.log(this.state);
   }
 
-  //not currently using this function -- there is definitely a better way to validate using react forms
   validate() {
     if (
       this.state.type === 'Visa' &&
@@ -66,41 +67,110 @@ class Form extends React.Component {
       this.setState({ validated: false });
     }
   }
+  doubleCheck() {
+    if (this.state.validated) {
+      const cardToCheck = this.state.number;
+      let newNumber = '';
+      if (cardToCheck.length % 2 === 0) {
+        for (let i = 0; i < cardToCheck.length; i++) {
+          let elem = cardToCheck[i];
+          if (i % 2 === 0) {
+            let digit = Number(elem);
+            let doubled = digit * 2;
+            console.log('doubled', doubled);
+            if (doubled >= 10) {
+              let string = doubled.toString();
+              console.log('string', string);
+              let result = Number(string[0]) + Number(string[1]);
+              console.log('result', result);
+              newNumber += result.toString();
+            } else {
+              newNumber += doubled.toString();
+            }
+          } else {
+            newNumber += elem;
+            console.log(newNumber, 'new number');
+          }
+        }
+        let finalNewNumber = 0;
+        for (let i = 0; i < newNumber.length; i++) {
+          finalNewNumber += Number(newNumber[i]);
+          console.log(finalNewNumber, 'final');
+        }
+
+        if (finalNewNumber % 10 !== 0) {
+          this.setState({ validated: false });
+        }
+      } else {
+        for (let i = 0; i < cardToCheck.length; i++) {
+          let elem = cardToCheck[i];
+          if (i % 2 === 1) {
+            let digit = Number(elem);
+            let doubled = digit * 2;
+            console.log('doubled', doubled);
+            if (doubled >= 10) {
+              let string = doubled.toString();
+              console.log('string', string);
+              let result = Number(string[0]) + Number(string[1]);
+              console.log('result', result);
+              newNumber += result.toString();
+            } else {
+              newNumber += doubled.toString();
+            }
+          } else {
+            newNumber += elem;
+            console.log(newNumber, 'new number');
+          }
+        }
+        let finalNewNumber = 0;
+        for (let i = 0; i < newNumber.length; i++) {
+          finalNewNumber += Number(newNumber[i]);
+          console.log(finalNewNumber, 'final');
+        }
+
+        if (finalNewNumber % 10 !== 0) {
+          this.setState({ validated: false });
+        }
+      }
+
+      console.log('number', cardToCheck);
+    }
+  }
 
   render() {
-    console.log('state', this.state);
-    console.log('char', this.state.number.charAt(0));
+    // console.log('state', this.state);
+    // console.log('char', this.state.number.charAt(0));
     return (
       <div>
         <h1>Order Now</h1>
 
         <form>
           <hr />
-          <div class="form-group">
-            <label class="font-weight-bold">Credit card number: </label>
+          <div className="form-group">
+            <label className="font-weight-bold">Credit card number: </label>
 
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
               <div>
                 <input
-                  class="form-control"
+                  className="form-control"
                   name="number"
                   type="number"
                   value={this.state.number}
                   onChange={this.handleInputChange}
                 />
               </div>
-              <div class="input-group-append">
+              <div className="input-group-append">
                 <div id="basic-addon3">
                   {this.state.validated === true ? (
                     <input
                       disabled
-                      class="form-control is-valid"
+                      className="form-control is-valid"
                       value={this.state.type}
                     />
                   ) : (
                     <input
                       disabled
-                      class="form-control is-invalid"
+                      className="form-control is-invalid"
                       value={this.state.type}
                     />
                   )}
@@ -108,8 +178,8 @@ class Form extends React.Component {
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label class="font-weight-bold">Name on card: </label>
+          <div className="form-group">
+            <label className="font-weight-bold">Name on card: </label>
             <input
               name="name"
               type="text"
@@ -117,8 +187,8 @@ class Form extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-          <div class="form-group">
-            <label class="font-weight-bold">Expiry Date: </label>
+          <div className="form-group">
+            <label className="font-weight-bold">Expiry Date: </label>
             <input
               name="date"
               type="text"
@@ -127,8 +197,8 @@ class Form extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-          <div class="form-group">
-            <label class="font-weight-bold">CVV:</label>
+          <div className="form-group">
+            <label className="font-weight-bold">CVV:</label>
             <input
               name="cvv"
               type="number"
@@ -136,7 +206,7 @@ class Form extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-          <button type="button" class="btn btn-primary">
+          <button type="button" className="btn btn-primary">
             Submit
           </button>
         </form>
